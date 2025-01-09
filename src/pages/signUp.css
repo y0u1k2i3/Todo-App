@@ -1,15 +1,16 @@
-@charset "utf-8";
-
 .signup {
   width: 500px;
   margin: 0 auto;
 }
+
 .signup-form {
   margin: 25px 0;
   color: #555555;
 }
 
-.email-input, .name-input, .password-input {
+.email-input,
+.name-input,
+.password-input {
   width: 100%;
   font-size: large;
   height: 30px;
@@ -17,7 +18,7 @@
 }
 
 .signup-button {
-  background-color: #242F9B;
+  background-color: #242f9b;
   color: #ffffff;
   width: 100px;
   height: 40px;
@@ -26,4 +27,4 @@
 
 .error-message {
   color: #ff3333;
-}
+}/*# sourceMappingURL=signUp.css.map */

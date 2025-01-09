@@ -1,9 +1,7 @@
-@charset "utf-8";
-
 .header {
   width: 100%;
   height: 80px;
-  background-color: #242F9B;
+  background-color: #242f9b;
   color: #ffffff;
   display: flex;
   justify-content: space-between;
@@ -12,4 +10,4 @@
 .sign-out-button {
   color: #ffffff;
   margin: auto 25px auto auto;
-}
+}/*# sourceMappingURL=header.css.map */
