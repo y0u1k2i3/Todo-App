@@ -1,15 +1,37 @@
 .new-list {
-  width: 1000px;
-  margin: 0 auto;
+  max-width: 1000px;
+  width: 80%;
+  margin: 50px auto;
+}
+@media screen and (max-width: 768px) {
+  .new-list {
+    width: 90%;
+    margin: 30px auto;
+  }
+}
+@media screen and (max-width: 320px) {
+  .new-list h2 {
+    font-size: 18px;
+  }
 }
 
 .new-list-form {
   color: #555555;
 }
+@media screen and (max-width: 320px) {
+  .new-list-form label {
+    font-size: 14px;
+  }
+}
 
 .new-list-title {
   width: 300px;
   margin-bottom: 25px;
+}
+@media screen and (max-width: 320px) {
+  .new-list-title {
+    width: 100%;
+  }
 }
 
 .new-list-button {
@@ -18,4 +40,11 @@
   width: 80px;
   height: 40px;
   border-radius: 5px;
-}/*# sourceMappingURL=newList.css.map */
+}
+@media screen and (max-width: 320px) {
+  .new-list-button {
+    width: 60px;
+    height: 30px;
+    font-size: 12px;
+  }
+} /*# sourceMappingURL=newList.css.map */

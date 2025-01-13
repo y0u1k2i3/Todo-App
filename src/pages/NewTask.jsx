@@ -53,7 +53,6 @@ export const NewTask = () => {
         setErrorMessage(`タスクの作成に失敗しました。${err}`);
       });
   };
-  
 
   useEffect(() => {
     axios
@@ -101,7 +100,12 @@ export const NewTask = () => {
           <br />
           <label>期限日時</label>
           <br />
-          <input type="datetime-local" id="limit" onChange={handleLimitChange} className="new-task-limit" />
+          <input
+            type="datetime-local"
+            id="limit"
+            onChange={handleLimitChange}
+            className="new-task-limit"
+          />
           <br />
           <button type="button" className="new-task-button" onClick={onCreateTask}>
             作成

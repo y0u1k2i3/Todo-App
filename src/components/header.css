@@ -6,8 +6,24 @@
   display: flex;
   justify-content: space-between;
 }
+@media screen and (max-width: 320px) {
+  .header {
+    height: 40px;
+    font-size: 10px;
+  }
+}
+.header h1 {
+  display: flex;
+  align-items: center;
+}
 
 .sign-out-button {
   color: #ffffff;
   margin: auto 25px auto auto;
-}/*# sourceMappingURL=header.css.map */
+}
+@media screen and (max-width: 320px) {
+  .sign-out-button {
+    height: 40px;
+    font-size: 12px;
+  }
+} /*# sourceMappingURL=header.css.map */

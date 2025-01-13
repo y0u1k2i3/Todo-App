@@ -19,11 +19,10 @@ export const EditTask = () => {
   const handleDetailChange = (e) => setDetail(e.target.value);
   const handleIsDoneChange = (e) => setIsDone(e.target.value === "done");
   const handleLimitChange = (e) => {
-    date = new Date(e.target.value).toISOString();
+    const date = new Date(e.target.value).toISOString();
     setLimit(date);
   };
   const onUpdateTask = () => {
-    console.log(isDone);
     const data = {
       title: title,
       detail: detail,
@@ -38,7 +37,6 @@ export const EditTask = () => {
         },
       })
       .then((res) => {
-        console.log(res.data);
         navigate("/");
       })
       .catch((err) => {
@@ -74,7 +72,6 @@ export const EditTask = () => {
         setDetail(task.detail);
         setIsDone(task.done);
         setLimit(task.limit);
-        console.log(task.limit);
       })
       .catch((err) => {
         setErrorMessage(`タスク情報の取得に失敗しました。${err}`);
@@ -109,9 +106,9 @@ export const EditTask = () => {
           <label>期限日時</label>
           <br />
           <input
-            type="datetime-local" 
-            id="limit" 
-            onChange={handleLimitChange} 
+            type="datetime-local"
+            id="limit"
+            onChange={handleLimitChange}
             className="edit-task-limit"
           />
           <br />

@@ -13,7 +13,29 @@ export const Home = () => {
   const [tasks, setTasks] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [cookies] = useCookies();
+
   const handleIsDoneDisplayChange = (e) => setIsDoneDisplay(e.target.value);
+
+  const handleKeyDown = (e) => {
+    const currentIndex = lists.findIndex((list) => list.id === selectListId);
+
+    if (e.key === "ArrowDown") {
+      // 次のリストに移動
+      e.preventDefault();
+      const nextIndex = (currentIndex + 1) % lists.length;
+      setSelectListId(lists[nextIndex].id);
+    } else if (e.key === "ArrowUp") {
+      // 前のリストに移動
+      e.preventDefault();
+      const prevIndex = (currentIndex - 1 + lists.length) % lists.length;
+      setSelectListId(lists[prevIndex].id);
+    } else if (e.key === "Enter") {
+      // 選択されたリストを確定
+      e.preventDefault();
+      handleSelectList(selectListId);
+    }
+  };
+
   useEffect(() => {
     axios
       .get(`${url}/lists`, {
@@ -63,6 +85,7 @@ export const Home = () => {
         setErrorMessage(`タスクの取得に失敗しました。${err}`);
       });
   };
+
   return (
     <div>
       <Header />
@@ -80,13 +103,23 @@ export const Home = () => {
               </p>
             </div>
           </div>
-          <ul className="list-tab">
-            {lists.map((list, key) => {
+          {/* リストをリストボックスとして扱う */}
+          <ul
+            className="list-tab"
+            role="listbox"
+            aria-label="リストの選択"
+            tabIndex={0}
+            onKeyDown={handleKeyDown}
+          >
+            {lists.map((list) => {
               const isActive = list.id === selectListId;
               return (
                 <li
-                  key={key}
+                  key={list.id}
                   className={`list-tab-item ${isActive ? "active" : ""}`}
+                  role="option"
+                  aria-selected={isActive}
+                  tabIndex={isActive ? 0 : -1} // アクティブな項目のみフォーカス可能
                   onClick={() => handleSelectList(list.id)}
                 >
                   {list.title}
@@ -100,7 +133,11 @@ export const Home = () => {
               <Link to="/task/new">タスク新規作成</Link>
             </div>
             <div className="display-select-wrapper">
-              <select onChange={handleIsDoneDisplayChange} className="display-select">
+              <select
+                onChange={handleIsDoneDisplayChange}
+                className="display-select"
+                aria-label="タスクの表示切り替え"
+              >
                 <option value="todo">未完了</option>
                 <option value="done">完了</option>
               </select>
@@ -118,25 +155,42 @@ const Tasks = (props) => {
   const { tasks, selectListId, isDoneDisplay } = props;
   const formatDate = (datestring) => {
     const date = new Date(datestring);
-
-  }
+    return date.toLocaleString("ja-JP", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
+  const remainingDate = (datestring) => {
+    const date = new Date(datestring);
+    const now = new Date();
+    const diff = date - now;
+    const diffDays = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const diffHours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const diffMinutes = Math.floor((diff / (1000 * 60)) % 60);
+    if (diff > 0) {
+      return `${diffDays}日 ${String(diffHours).padStart(2, "0")}時間 ${String(diffMinutes).padStart(2, "0")}分`;
+    } else {
+      return "期限切れ";
+    }
+  };
   if (tasks === null) return <></>;
 
-  if (isDoneDisplay == "done") {
+  if (isDoneDisplay === "done") {
     return (
       <ul>
         {tasks
-          .filter((task) => {
-            return task.done === true;
-          })
-          .map((task, key) => (
-            <li key={key} className="task-item">
+          .filter((task) => task.done)
+          .map((task) => (
+            <li key={task.id} className="task-item">
               <Link to={`/lists/${selectListId}/tasks/${task.id}`} className="task-item-link">
                 {task.title}
                 <br />
                 {task.done ? "完了" : "未完了"}
                 <br />
-                {new Date(task.limit).toLocaleString()}             
+                {new Date(task.limit).toLocaleString()}
               </Link>
             </li>
           ))}
@@ -147,19 +201,19 @@ const Tasks = (props) => {
   return (
     <ul>
       {tasks
-        .filter((task) => {
-          return task.done === false;
-        })
-        .map((task, key) => (
-          <li key={key} className="task-item">
+        .filter((task) => !task.done)
+        .map((task) => (
+          <li key={task.id} className="task-item">
             <Link to={`/lists/${selectListId}/tasks/${task.id}`} className="task-item-link">
               {task.title}
               <br />
               {task.done ? "完了" : "未完了"}
               <br />
-              {new Date(task.limit).toLocaleString()}
+              <strong>期限日時: </strong>
+              {formatDate(task.limit)}
               <br />
-              {(new Date() - new Date(task.limit)).toLocaleString() > 0 ? "期限切れ" : ""}
+              <strong>残り日時: </strong>
+              {remainingDate(task.limit)}
             </Link>
           </li>
         ))}

@@ -1,10 +1,28 @@
 .signin {
-  width: 500px;
-  margin: 0 auto;
+  max-width: 500px;
+  width: 80%;
+  margin: 50px auto;
+}
+@media screen and (max-width: 768px) {
+  .signin {
+    width: 90%;
+    margin: 30px auto;
+  }
+}
+@media screen and (max-width: 320px) {
+  .signin h2 {
+    font-size: 18px;
+  }
 }
 
 .signin-form {
   margin: 25px 0;
+}
+@media screen and (max-width: 320px) {
+  .signin-form label {
+    margin: 10px 0;
+    font-size: 14px;
+  }
 }
 
 .email-label,
@@ -27,7 +45,20 @@
   height: 40px;
   border-radius: 5px;
 }
+@media screen and (max-width: 320px) {
+  .signin-button {
+    width: 60px;
+    height: 30px;
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  a {
+    font-size: 10px;
+  }
+}
 
 .error-message {
   color: #ff3333;
-}/*# sourceMappingURL=signin.css.map */
+} /*# sourceMappingURL=signin.css.map */

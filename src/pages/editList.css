@@ -1,15 +1,38 @@
 .edit-list {
-  width: 1000px;
-  margin: 0 auto;
+  max-width: 1000px;
+  width: 80%;
+  margin: 50px auto;
+}
+@media screen and (max-width: 768px) {
+  .edit-list {
+    width: 90%;
+    margin: 30px auto;
+  }
+}
+@media screen and (max-width: 320px) {
+  .edit-list h2 {
+    font-size: 18px;
+  }
 }
 
 .edit-list-form {
   color: #555555;
 }
+@media screen and (max-width: 320px) {
+  .edit-list-form label {
+    font-size: 14px;
+  }
+}
 
 .edit-list-title {
   width: 300px;
   margin-bottom: 25px;
+}
+@media screen and (max-width: 320px) {
+  .edit-list-title {
+    width: 100%;
+    margin-bottom: 10px;
+  }
 }
 
 .delete-list-button {
@@ -20,6 +43,14 @@
   margin: 25px 5px;
   border-radius: 5px;
 }
+@media screen and (max-width: 320px) {
+  .delete-list-button {
+    width: 60px;
+    height: 30px;
+    margin: 10px 5px;
+    font-size: 12px;
+  }
+}
 
 .edit-list-button {
   background-color: #242f9b;
@@ -28,7 +59,14 @@
   height: 40px;
   border-radius: 5px;
 }
+@media screen and (max-width: 320px) {
+  .edit-list-button {
+    width: 60px;
+    height: 30px;
+    font-size: 12px;
+  }
+}
 
 .error-message {
   color: #ff3333;
-}/*# sourceMappingURL=editList.css.map */
+} /*# sourceMappingURL=editList.css.map */
